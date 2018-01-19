@@ -64,6 +64,9 @@ public class SnakeController : MonoBehaviour
 
     private void MoveTail ()
     {
+        if (_Tail.Count == 0)
+            return;
+
         var currentHeadPosition = _Transform.position;
         var lastTailPiece = _Tail[_Tail.Count - 1];
         _Tail.RemoveAt (_Tail.Count - 1);
@@ -111,7 +114,14 @@ public class SnakeController : MonoBehaviour
 
     private void OnTailShrunk (TailShrunk e)
     {
-        for (int i = 1; i < e.ShrinkAmount; i++)
+        int shrinkAmount = 0;
+
+        if (_Tail.Count > e.ShrinkAmount)
+            shrinkAmount = _Tail.Count - 1;
+        else
+            shrinkAmount = e.ShrinkAmount;
+
+        for (int i = 1; i < shrinkAmount; i++)
         {
             var tailPiece = _Tail[_Tail.Count - i];
             _Tail.Remove (tailPiece);
