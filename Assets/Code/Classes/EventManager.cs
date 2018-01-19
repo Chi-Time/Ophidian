@@ -23,6 +23,9 @@ public class EventManager
     private Dictionary<System.Type, EventDelegate> _Delegates = new Dictionary<System.Type, EventDelegate> ();
     private Dictionary<System.Delegate, EventDelegate> _DelegatesLookup = new Dictionary<System.Delegate, EventDelegate> ();
 
+    /// <summary> Adds a listener to the event list for the given event type.</summary>
+    /// <typeparam name="T">The even to listen for.</typeparam>
+    /// <param name="del">The callback to initiate when the event is fired.</param>
     public void AddListener<T> (EventDelegate<T> del) where T : GameEvent
     {
         // Early-out if we've already registered this delegate
@@ -42,6 +45,9 @@ public class EventManager
             _Delegates[typeof (T)] = internalDelegate;
     }
 
+    /// <summary> Removes a listener from the event list for the given event type.</summary>
+    /// <typeparam name="T">The event being listened for.</typeparam>
+    /// <param name="del">The callback initiated when the event is triggered.</param>
     public void RemoveListener<T> (EventDelegate<T> del) where T : GameEvent
     {
         EventDelegate internalDelegate;
@@ -64,6 +70,8 @@ public class EventManager
         }
     }
 
+    /// <summary> Raises an event and informs all listeners of the event's info. </summary>
+    /// <param name="e">The event to raise.</param>
     public void Raise (GameEvent e)
     {
         EventDelegate del;
