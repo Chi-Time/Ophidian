@@ -2,10 +2,7 @@
 
 public class SpeedBoost : Pickup
 {
-    protected override void Setup ()
-    {
-        this.tag = "Food";
-    }
+    [SerializeField] private float _BoostAmount = 0.0f;
 
     protected override void Collect (Collider2D other)
     {

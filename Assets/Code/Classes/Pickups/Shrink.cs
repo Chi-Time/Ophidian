@@ -2,10 +2,7 @@
 
 public class Shrink : Pickup
 {
-    protected override void Setup ()
-    {
-        this.tag = "Food";
-    }
+    [SerializeField] private int _ShrinkAmount = 0;
 
     protected override void Collect (Collider2D other)
     {

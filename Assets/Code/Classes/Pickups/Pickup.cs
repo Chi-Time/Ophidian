@@ -3,10 +3,12 @@
 [RequireComponent (typeof (Rigidbody2D), typeof (Collider2D))]
 public abstract class Pickup : MonoBehaviour
 {
+    [Tooltip ("The score awarded to the player upon collecting the pickup.")]
+    [SerializeField] private int _Value = 0;
+
     private void Awake ()
     {
         AssignReferences ();
-        Setup ();
     }
 
     private void AssignReferences ()
@@ -17,8 +19,6 @@ public abstract class Pickup : MonoBehaviour
         GetComponent<Collider2D> ().isTrigger = true;
     }
 
-    protected abstract void Setup ();
-
     private void OnTriggerEnter2D (Collider2D other)
     {
         if (other.CompareTag ("Player"))
@@ -27,6 +27,6 @@ public abstract class Pickup : MonoBehaviour
 
     protected virtual void Collect (Collider2D other)
     {
-        Destroy (this.gameObject);
+        this.gameObject.SetActive (false);
     }
 }
