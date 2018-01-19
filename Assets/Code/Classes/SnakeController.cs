@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
+[RequireComponent (typeof (Rigidbody2D), typeof (Collider2D))]
 public class SnakeController : MonoBehaviour
 {
     [Tooltip ("The speed of the snake's movement on screen.")]
@@ -8,10 +10,17 @@ public class SnakeController : MonoBehaviour
 
     private Vector3 _Direction = Vector2.zero;
     private Transform _Transform = null;
+    private Rigidbody2D _Rigidbody2D = null;
 
     private void Awake ()
     {
         _Transform = GetComponent<Transform> ();
+        _Rigidbody2D = GetComponent<Rigidbody2D> ();
+        GetComponent<Collider2D> ().isTrigger = true;
+
+        _Rigidbody2D.gravityScale = 0.0f;
+        _Rigidbody2D.isKinematic = true;
+        _Rigidbody2D.freezeRotation = true;
     }
 
     private void Start ()
@@ -42,7 +51,7 @@ public class SnakeController : MonoBehaviour
     {
         yield return new WaitForSeconds (_Speed);
 
-        _Transform.position += _Direction;
+        _Rigidbody2D.MovePosition (_Rigidbody2D.position + (Vector2)_Direction);
 
         StopCoroutine (Move ());
         StartCoroutine (Move ());
