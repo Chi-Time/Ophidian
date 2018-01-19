@@ -7,6 +7,8 @@ public class SnakeController : MonoBehaviour
 {
     [Tooltip ("The speed of the snake's movement on screen.")]
     [SerializeField] private float _Speed = 0.5f;
+    [SerializeField] private GameObject _TailPiecePrefab = null;
+    [SerializeField] private List<Transform> _Tail = new List<Transform> ();
 
     private Vector3 _Direction = Vector2.zero;
     private Transform _Transform = null;
@@ -21,6 +23,13 @@ public class SnakeController : MonoBehaviour
         _Rigidbody2D.gravityScale = 0.0f;
         _Rigidbody2D.isKinematic = true;
         _Rigidbody2D.freezeRotation = true;
+
+        for (int i = 0; i < 10; i++)
+        {
+            var piece = Instantiate (_TailPiecePrefab, Vector3.zero, Quaternion.identity);
+
+            _Tail.Add (piece.transform);
+        }
     }
 
     private void Start ()
@@ -50,6 +59,13 @@ public class SnakeController : MonoBehaviour
     private IEnumerator Move ()
     {
         yield return new WaitForSeconds (_Speed);
+
+        var currentPos = _Transform.position;
+        var endPiece = _Tail[_Tail.Count - 1];
+        _Tail.RemoveAt (_Tail.Count - 1);
+
+        endPiece.position = currentPos;
+        _Tail.Insert (0, endPiece);
 
         _Rigidbody2D.MovePosition (_Rigidbody2D.position + (Vector2)_Direction);
 
