@@ -6,7 +6,7 @@ public class Shrink : Pickup
 
     protected override void Collect (Collider2D other)
     {
-        //TODO: Shrink player size.
+        EventManager.Instance.Raise (new TailShrunk (_ShrinkAmount));
 
         base.Collect (other);
     }
