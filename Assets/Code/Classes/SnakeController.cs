@@ -85,4 +85,12 @@ public class SnakeController : MonoBehaviour
     {
         _Rigidbody2D.MovePosition (_Rigidbody2D.position + _Direction);
     }
+
+    public void GrowTail ()
+    {
+        var piece = Instantiate (_TailPiecePrefab, Vector3.zero, Quaternion.identity).transform;
+        piece.position = _Tail[_Tail.Count - 1].position;
+
+        _Tail.Add (piece);
+    }
 }
