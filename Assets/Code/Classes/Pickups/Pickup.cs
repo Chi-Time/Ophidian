@@ -27,6 +27,7 @@ public abstract class Pickup : MonoBehaviour
 
     protected virtual void Collect (Collider2D other)
     {
+        EventManager.Instance.Raise (new ScoreIncreased (_Value));
         this.gameObject.SetActive (false);
     }
 }
