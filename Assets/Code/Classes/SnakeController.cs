@@ -102,7 +102,11 @@ public class SnakeController : MonoBehaviour
     public void GrowTail ()
     {
         var piece = Instantiate (_TailPiecePrefab, Vector3.zero, Quaternion.identity).transform;
-        piece.position = _Tail[_Tail.Count - 1].position;
+
+        if (_Tail.Count == 0)
+            piece.position = _Transform.position;
+        else
+            piece.position = _Tail[_Tail.Count - 1].position;
 
         _Tail.Add (piece);
     }
