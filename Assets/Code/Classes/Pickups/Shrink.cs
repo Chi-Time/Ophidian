@@ -9,7 +9,7 @@ public class Shrink : Pickup
 
     private int _ShrinkAmount = 0;
 
-    private void Awake ()
+    private void Start ()
     {
         _ShrinkAmount = Random.Range (_MinShrinkAmount, _MaxShrinkAmount);
     }

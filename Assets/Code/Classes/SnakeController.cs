@@ -130,7 +130,7 @@ public class SnakeController : MonoBehaviour
             var tailPiece = _Tail[_Tail.Count - i];
             _Tail.Remove (tailPiece);
 
-            Destroy (tailPiece);
+            Destroy (tailPiece.gameObject);
         }
     }
 
